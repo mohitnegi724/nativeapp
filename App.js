@@ -1,19 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import IndividualMessage from './IndividualMessage'
+import Messages from './screens/Messages'
+import {MessageProvider, SelectMessageProvider} from './context/messages.context'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+
+const Stack = createStackNavigator();
+export default function App({message}){
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <MessageProvider >
+      <SelectMessageProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Messages"
+              component={Messages} 
+            />
+            <Stack.Screen
+              name="IndividualMessage"
+              component={IndividualMessage} 
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SelectMessageProvider>
+    </MessageProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
